@@ -54,9 +54,9 @@ body::before{
 
 /* header */
 .site-header{height:84px;display:flex;align-items:center;gap:40px;padding:0 4vw;position:sticky;top:0;background:rgba(11,10,8,.86);backdrop-filter:blur(18px) saturate(1.1);border-bottom:1px solid var(--line);z-index:60}
-.brand{display:flex;align-items:center;gap:10px;min-width:210px}
-.brand img{width:38px;height:38px;object-fit:contain;border-radius:50%}
-.brand span{font-family:var(--serif);font-size:23px;font-weight:600;letter-spacing:.3px}
+.brand{display:flex;align-items:center;gap:14px;min-width:230px}
+.brand img{width:56px;height:56px;object-fit:cover;border-radius:50%;border:1.5px solid var(--bronze);box-shadow:0 0 0 3px rgba(3,3,3,.9),0 2px 14px rgba(200,163,95,.35);flex:none}
+.brand span{font-family:var(--serif);font-size:27px;font-weight:800;letter-spacing:.4px;color:var(--ivory);text-shadow:0 1px 18px rgba(200,163,95,.25);white-space:nowrap}
 .main-nav{display:flex;gap:30px;flex:1}
 .main-nav a{position:relative;font-size:11px;letter-spacing:2px;color:var(--muted);padding:6px 0;transition:color .3s}
 .main-nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--bronze);transition:right .35s cubic-bezier(.2,.8,.2,1)}
@@ -123,33 +123,40 @@ body::before{
 @keyframes scrollLeft{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ================= RING CAROUSELS (true 3D) ================= */
+.rings-grid{max-width:1480px;margin:0 auto;padding:96px 4vw;display:grid;grid-template-columns:1fr 1fr;gap:0 64px}
+.rings-grid .ring-section{padding:0;margin:0;max-width:none}
+.rings-grid .section-head h2{font-size:clamp(22px,2.3vw,34px);line-height:1.05;white-space:nowrap}
+.rings-grid .ring-toolbar{min-height:80px}
 .ring-section{max-width:1480px;margin:0 auto;padding:96px 4vw;overflow:hidden}
 .ring-toolbar{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:8px}
 .ring-hint{font-size:10px;letter-spacing:1.5px;color:var(--dim);display:flex;align-items:center;gap:8px}
 .ring-nav{display:flex;gap:10px}
 .ring-btn{width:46px;height:46px;border:1px solid var(--line);background:var(--panel);color:var(--ivory);display:flex;align-items:center;justify-content:center;transition:.3s}
 .ring-btn:hover{border-color:var(--bronze);color:var(--bronze)}
-.ring-stage{position:relative;height:440px;perspective:1700px;display:flex;align-items:center;justify-content:center;cursor:grab;margin-top:26px}
+.ring-stage{position:relative;height:440px;perspective:1700px;display:flex;align-items:center;justify-content:center;cursor:grab;margin-top:26px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
 .ring-stage:active{cursor:grabbing}
 .ring{position:relative;width:1px;height:1px;transform-style:preserve-3d}
-.ring-item{position:absolute;top:50%;left:50%;transform-style:preserve-3d;will-change:transform,filter;transition:filter .25s}
+.ring-item{position:absolute;top:50%;left:50%;transform-style:preserve-3d;will-change:transform,filter;transition:filter .25s;-webkit-user-drag:none;user-select:none;-webkit-user-select:none}
+.ring-item img{-webkit-user-drag:none;pointer-events:none}
 
-.orbit-item{width:224px;height:320px;overflow:hidden;border:1px solid var(--line);background:var(--panel-2)}
-.orbit-item img{width:100%;height:100%;object-fit:cover;filter:saturate(.68)}
-.orbit-item:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(11,10,8,.85),transparent 55%)}
-.orbit-item span{position:absolute;z-index:2;bottom:18px;left:18px;font-size:11px;letter-spacing:2px;color:var(--ivory)}
-.orbit-item.front{border-color:var(--bronze)}
+.rings-grid .ring-stage{height:380px}
+.rings-grid .pcard{width:180px;height:312px}
+.rings-grid .pcard .pimg{height:220px}
 
-.pcard{width:238px;height:412px;background:var(--panel-2);border:1px solid var(--line);display:flex;flex-direction:column}
+.pcard{width:238px;height:412px;background:var(--panel-2);border:1px solid var(--line);display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:border-color .3s}
 .pcard.front{border-color:var(--bronze)}
 .pcard .pimg{position:relative;height:300px;overflow:hidden;flex:none}
-.pcard .pimg img{width:100%;height:100%;object-fit:cover;filter:saturate(.75)}
+.pcard .pimg img{width:100%;height:100%;object-fit:cover;filter:saturate(.75);transition:transform .5s ease}
+.pcard:hover .pimg img{transform:scale(1.06)}
 .pcard .tag{position:absolute;top:12px;left:12px;background:var(--wine-2);color:#fff;font-size:8px;letter-spacing:1.5px;padding:6px 9px;text-transform:uppercase}
 .pcopy{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1}
 .pcopy h3{font-size:11px;letter-spacing:1.5px;margin:0;color:var(--ivory);font-weight:600}
 .pcopy p{margin:0;font-weight:700;color:var(--bronze);font-size:13px}
-.pcopy .add{margin-top:auto;background:none;border:1px solid var(--line);color:var(--ivory);padding:11px 12px;font-size:9px;letter-spacing:1.6px;transition:.3s}
+.pcopy .add{display:block;width:100%;text-align:center;margin-top:auto;background:none;border:1px solid var(--line);color:var(--ivory);padding:11px 12px;font-size:9px;letter-spacing:1.6px;transition:.3s;box-sizing:border-box}
 .pcopy .add:hover{background:var(--wine-2);border-color:var(--wine-2)}
+
+/* mobile-only carousel nav (shown under the stage on small screens) */
+.ring-mobile-nav{display:none}
 
 /* ================= COVERFLOW CAROUSEL ================= */
 .coverflow-section{max-width:1480px;margin:0 auto;padding:20px 4vw 100px}
@@ -352,6 +359,9 @@ footer a:hover{color:var(--bronze)}
 .bottom-tabs button b{position:absolute;top:4px;right:calc(50% - 20px);background:var(--wine-2);color:#fff;font-size:7px;border-radius:50%;min-width:13px;height:13px;display:flex;align-items:center;justify-content:center}
 
 /* ================= RESPONSIVE ================= */
+@media(max-width:1300px){
+  .rings-grid{grid-template-columns:1fr;gap:70px 0}
+}
 @media(max-width:1050px){
   .hero-premium{grid-template-columns:1fr}.hero-rail{display:none}
   .look-experience{grid-template-columns:1fr}.look-panel{border-left:0;border-top:1px solid var(--line)}
@@ -364,13 +374,22 @@ footer a:hover{color:var(--bronze)}
 @media(max-width:767px){
   .site-header{height:auto;padding:14px 16px;gap:14px}
   .brand{min-width:0;flex:1}
+  .brand img{width:42px;height:42px}
+  .brand span{font-size:20px}
   .main-nav{display:none}
   .category-bar{position:static}
   .hero-stage{min-height:600px}
   .hero-content{left:7%;right:7%}
   .hero-arrow{display:none}
-  .ring-toolbar{flex-direction:column;align-items:start;gap:14px}
-  .ring-stage{height:380px}
+  .ring-toolbar{flex-direction:column;align-items:start;gap:10px;min-height:0}
+  .rings-grid .section-head h2{white-space:normal;font-size:clamp(26px,7.5vw,36px)}
+  .ring-hint{display:none}
+  .ring-stage{height:340px}
+  .rings-grid .ring-stage{height:340px}
+  .rings-grid{padding:56px 4vw}
+  .rings-grid .pcard{width:160px;height:280px}
+  .rings-grid .pcard .pimg{height:195px}
+  .ring-mobile-nav{display:flex;justify-content:center;gap:14px;margin-top:20px}
   .plp-grid{grid-template-columns:repeat(2,1fr);gap:20px 14px}
   .cuboid-stage{height:240px}
   .editorial-copy{padding:50px 28px}
@@ -482,6 +501,7 @@ footer a:hover{color:var(--bronze)}
   </div>
 </div>
 
+<div class="rings-grid">
 <!-- COLLECTIONS — 3D ring -->
 <section class="ring-section" id="collections">
   <div class="ring-toolbar">
@@ -495,18 +515,22 @@ footer a:hover{color:var(--bronze)}
     <button class="ring-btn ring-edge-btn left" data-ring="orbit" data-dir="1" aria-label="Previous category">‹</button>
     <div class="ring-stage" id="orbitStage">
       <div class="ring" id="orbitRing">
-        <a class="ring-item orbit-item" href="#shop"><img src="https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=85"><span>Tops</span></a>
-        <a class="ring-item orbit-item" href="#shop"><img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=700&q=85"><span>Denim</span></a>
-        <a class="ring-item orbit-item" href="#shop"><img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=700&q=85"><span>Gowns</span></a>
-        <a class="ring-item orbit-item" href="#shop"><img src="https://images.unsplash.com/photo-1495385794356-15371f348c31?auto=format&fit=crop&w=700&q=85"><span>Pants</span></a>
-        <a class="ring-item orbit-item" href="#shop"><img src="https://images.unsplash.com/photo-1583496661160-fb5886a13d05?auto=format&fit=crop&w=700&q=85"><span>Skirts</span></a>
-        <a class="ring-item orbit-item" href="#shop"><img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=700&q=85"><span>Leather</span></a>
-        <a class="ring-item orbit-item" href="#shop"><img src="https://images.unsplash.com/photo-1612902456551-333ac5afa26e?auto=format&fit=crop&w=700&q=85"><span>Accessories</span></a>
-        <a class="ring-item orbit-item" href="#shop"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=700&q=85"><span>Full Outfits</span></a>
-        <a class="ring-item orbit-item" href="#shop"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=700&q=85"><span>Custom</span></a>
+        <a class="ring-item pcard mood-card" href="#shop" data-category="tops" aria-label="Shop Tops"><div class="pimg"><img src="https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=700&q=85" alt="Tops"></div><div class="pcopy"><h3>Tops</h3><p>Shop the edit</p><span class="add">Explore →</span></div></a>
+        <a class="ring-item pcard mood-card" href="#shop" data-category="denim" aria-label="Shop Denim"><div class="pimg"><img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=700&q=85" alt="Denim"></div><div class="pcopy"><h3>Denim</h3><p>Shop the edit</p><span class="add">Explore →</span></div></a>
+        <a class="ring-item pcard mood-card" href="#shop" data-category="gowns" aria-label="Shop Gowns"><div class="pimg"><img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=700&q=85" alt="Gowns"></div><div class="pcopy"><h3>Gowns</h3><p>Shop the edit</p><span class="add">Explore →</span></div></a>
+        <a class="ring-item pcard mood-card" href="#shop" data-category="pants" aria-label="Shop Pants"><div class="pimg"><img src="https://images.unsplash.com/photo-1495385794356-15371f348c31?auto=format&fit=crop&w=700&q=85" alt="Pants"></div><div class="pcopy"><h3>Pants</h3><p>Shop the edit</p><span class="add">Explore →</span></div></a>
+        <a class="ring-item pcard mood-card" href="#shop" data-category="skirts" aria-label="Shop Skirts"><div class="pimg"><img src="https://images.unsplash.com/photo-1583496661160-fb5886a13d05?auto=format&fit=crop&w=700&q=85" alt="Skirts"></div><div class="pcopy"><h3>Skirts</h3><p>Shop the edit</p><span class="add">Explore →</span></div></a>
+        <a class="ring-item pcard mood-card" href="#shop" data-category="leather" aria-label="Shop Leather"><div class="pimg"><img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=700&q=85" alt="Leather"></div><div class="pcopy"><h3>Leather</h3><p>Shop the edit</p><span class="add">Explore →</span></div></a>
+        <a class="ring-item pcard mood-card" href="#shop" data-category="accessories" aria-label="Shop Accessories"><div class="pimg"><img src="https://images.unsplash.com/photo-1612902456551-333ac5afa26e?auto=format&fit=crop&w=700&q=85" alt="Accessories"></div><div class="pcopy"><h3>Accessories</h3><p>Shop the edit</p><span class="add">Explore →</span></div></a>
+        <a class="ring-item pcard mood-card" href="#shop" data-category="outfits" aria-label="Shop Full Outfits"><div class="pimg"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=700&q=85" alt="Full Outfits"></div><div class="pcopy"><h3>Full Outfits</h3><p>Shop the edit</p><span class="add">Explore →</span></div></a>
+        <a class="ring-item pcard mood-card" href="#shop" data-category="custom" aria-label="Shop Custom"><div class="pimg"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=700&q=85" alt="Custom"></div><div class="pcopy"><h3>Custom</h3><p>Shop the edit</p><span class="add">Explore →</span></div></a>
       </div>
     </div>
     <button class="ring-btn ring-edge-btn right" data-ring="orbit" data-dir="-1" aria-label="Next category">›</button>
+  </div>
+  <div class="ring-mobile-nav">
+    <button class="ring-btn" data-ring="orbit" data-dir="1" aria-label="Previous category">‹</button>
+    <button class="ring-btn" data-ring="orbit" data-dir="-1" aria-label="Next category">›</button>
   </div>
 </section>
 
@@ -517,11 +541,11 @@ footer a:hover{color:var(--bronze)}
       <p class="eyebrow">The Aluqe Couture Select</p>
       <h2>Bestsellers <em>in motion</em></h2>
     </div>
-    <div class="ring-hint">Drag the ring, or use the arrows</div>
+    <div class="ring-hint">Drag to rotate, or use the arrows</div>
   </div>
   <div class="ring-stage-wrap">
     <button class="ring-btn ring-edge-btn left" data-ring="product" data-dir="1" aria-label="Previous product">‹</button>
-    <div class="ring-stage" id="productStage" style="height:480px">
+    <div class="ring-stage" id="productStage">
       <div class="ring" id="productRing">
       <article class="ring-item pcard"><div class="pimg"><div class="tag">Bestseller</div><img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=800&q=90"></div><div class="pcopy"><h3>Structured Tote</h3><p>$49.00</p><button class="add">Add to bag</button></div></article>
       <article class="ring-item pcard"><div class="pimg"><img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=800&q=90"></div><div class="pcopy"><h3>Tailored Jacket</h3><p>$35.00</p><button class="add">Add to bag</button></div></article>
@@ -533,7 +557,12 @@ footer a:hover{color:var(--bronze)}
     </div>
     <button class="ring-btn ring-edge-btn right" data-ring="product" data-dir="-1" aria-label="Next product">›</button>
   </div>
+  <div class="ring-mobile-nav">
+    <button class="ring-btn" data-ring="product" data-dir="1" aria-label="Previous product">‹</button>
+    <button class="ring-btn" data-ring="product" data-dir="-1" aria-label="Next product">›</button>
+  </div>
 </section>
+</div>
 
 <!-- SHOP ALL — filterable grid with 3D cuboid thumbnails -->
 <section class="plp-section" id="shop">
@@ -542,7 +571,7 @@ footer a:hover{color:var(--bronze)}
     <h2>Shop <em>all</em></h2>
   </div>
   <div class="plp-toolbar">
-    <div class="plp-count"><span id="plpCount">9</span> items · flip a thumbnail to see more angles</div>
+    <div class="plp-count"><span id="plpCount">15</span> items · flip a thumbnail to see more angles</div>
     <select class="plp-sort" id="plpSort" aria-label="Sort products">
       <option>Sort: Newest</option>
       <option>Price: Low to High</option>
@@ -689,6 +718,99 @@ footer a:hover{color:var(--bronze)}
         <button class="cube-nav next" aria-label="Rotate right">›</button>
       </div>
       <div class="plp-copy"><h4>Made-to-Measure Blazer</h4><div class="plp-price"><b>From $75</b></div></div>
+    </article>
+
+    <article class="plp-card" data-category="tops">
+      <div class="cuboid-stage">
+        <button class="wish-btn" aria-label="Add to wishlist">♡</button>
+        <div class="cuboid" data-rot="0">
+          <div class="cube-face front"><img src="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?auto=format&fit=crop&w=500&q=85"></div>
+          <div class="cube-face right"><img src="https://images.unsplash.com/photo-1554568218-0f1715e72254?auto=format&fit=crop&w=500&q=85"></div>
+          <div class="cube-face back"><img src="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?auto=format&fit=crop&w=500&q=85"></div>
+          <div class="cube-face left price-face"><div class="price-face-inner"><b>$32.00</b><span>Silk Wrap Blouse</span><button class="add quick-add">Quick add</button></div></div>
+        </div>
+        <button class="cube-nav prev" aria-label="Rotate left">‹</button>
+        <button class="cube-nav next" aria-label="Rotate right">›</button>
+      </div>
+      <div class="plp-copy"><h4>Silk Wrap Blouse</h4><div class="plp-price"><b>$32.00</b></div></div>
+    </article>
+
+    <article class="plp-card" data-category="denim">
+      <div class="cuboid-stage">
+        <button class="wish-btn" aria-label="Add to wishlist">♡</button>
+        <span class="discount-tag">New</span>
+        <div class="cuboid" data-rot="0">
+          <div class="cube-face front"><img src="https://images.unsplash.com/photo-1475178626620-a4d074967452?auto=format&fit=crop&w=500&q=85"></div>
+          <div class="cube-face right"><img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=500&q=85"></div>
+          <div class="cube-face back"><img src="https://images.unsplash.com/photo-1475178626620-a4d074967452?auto=format&fit=crop&w=500&q=85"></div>
+          <div class="cube-face left price-face"><div class="price-face-inner"><b>$45.00</b><span>Cropped Denim Jacket</span><button class="add quick-add">Quick add</button></div></div>
+        </div>
+        <button class="cube-nav prev" aria-label="Rotate left">‹</button>
+        <button class="cube-nav next" aria-label="Rotate right">›</button>
+      </div>
+      <div class="plp-copy"><h4>Cropped Denim Jacket</h4><div class="plp-price"><b>$45.00</b></div></div>
+    </article>
+
+    <article class="plp-card" data-category="gowns">
+      <div class="cuboid-stage">
+        <button class="wish-btn" aria-label="Add to wishlist">♡</button>
+        <span class="discount-tag">-20%</span>
+        <div class="cuboid" data-rot="0">
+          <div class="cube-face front"><img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=500&q=85"></div>
+          <div class="cube-face right"><img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=500&q=85"></div>
+          <div class="cube-face back"><img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=500&q=85"></div>
+          <div class="cube-face left price-face"><div class="price-face-inner"><b>$78.00</b><span>Off-Shoulder Maxi Dress</span><button class="add quick-add">Quick add</button></div></div>
+        </div>
+        <button class="cube-nav prev" aria-label="Rotate left">‹</button>
+        <button class="cube-nav next" aria-label="Rotate right">›</button>
+      </div>
+      <div class="plp-copy"><h4>Off-Shoulder Maxi Dress</h4><div class="plp-price"><b>$78.00</b><s>$98.00</s></div></div>
+    </article>
+
+    <article class="plp-card" data-category="pants">
+      <div class="cuboid-stage">
+        <button class="wish-btn" aria-label="Add to wishlist">♡</button>
+        <div class="cuboid" data-rot="0">
+          <div class="cube-face front"><img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=500&q=85"></div>
+          <div class="cube-face right"><img src="https://images.unsplash.com/photo-1495385794356-15371f348c31?auto=format&fit=crop&w=500&q=85"></div>
+          <div class="cube-face back"><img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=500&q=85"></div>
+          <div class="cube-face left price-face"><div class="price-face-inner"><b>$42.00</b><span>High-Waist Trousers</span><button class="add quick-add">Quick add</button></div></div>
+        </div>
+        <button class="cube-nav prev" aria-label="Rotate left">‹</button>
+        <button class="cube-nav next" aria-label="Rotate right">›</button>
+      </div>
+      <div class="plp-copy"><h4>High-Waist Trousers</h4><div class="plp-price"><b>$42.00</b></div></div>
+    </article>
+
+    <article class="plp-card" data-category="skirts">
+      <div class="cuboid-stage">
+        <button class="wish-btn" aria-label="Add to wishlist">♡</button>
+        <div class="cuboid" data-rot="0">
+          <div class="cube-face front"><img src="https://images.unsplash.com/photo-1583496661160-fb5886a13d05?auto=format&fit=crop&w=500&q=85"></div>
+          <div class="cube-face right"><img src="https://images.unsplash.com/photo-1583496661160-fb5886a13d05?auto=format&fit=crop&w=500&q=85"></div>
+          <div class="cube-face back"><img src="https://images.unsplash.com/photo-1583496661160-fb5886a13d05?auto=format&fit=crop&w=500&q=85"></div>
+          <div class="cube-face left price-face"><div class="price-face-inner"><b>$36.00</b><span>Satin Wrap Skirt</span><button class="add quick-add">Quick add</button></div></div>
+        </div>
+        <button class="cube-nav prev" aria-label="Rotate left">‹</button>
+        <button class="cube-nav next" aria-label="Rotate right">›</button>
+      </div>
+      <div class="plp-copy"><h4>Satin Wrap Skirt</h4><div class="plp-price"><b>$36.00</b></div></div>
+    </article>
+
+    <article class="plp-card" data-category="accessories">
+      <div class="cuboid-stage">
+        <button class="wish-btn" aria-label="Add to wishlist">♡</button>
+        <span class="discount-tag">New</span>
+        <div class="cuboid" data-rot="0">
+          <div class="cube-face front"><img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=500&q=85"></div>
+          <div class="cube-face right"><img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=500&q=85"></div>
+          <div class="cube-face back"><img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=500&q=85"></div>
+          <div class="cube-face left price-face"><div class="price-face-inner"><b>$25.00</b><span>Statement Sunglasses</span><button class="add quick-add">Quick add</button></div></div>
+        </div>
+        <button class="cube-nav prev" aria-label="Rotate left">‹</button>
+        <button class="cube-nav next" aria-label="Rotate right">›</button>
+      </div>
+      <div class="plp-copy"><h4>Statement Sunglasses</h4><div class="plp-price"><b>$25.00</b></div></div>
     </article>
 
   </div>
@@ -903,28 +1025,37 @@ class RingCarousel{
     this.stage=stageEl; this.ring=ringEl;
     this.items=[...ringEl.querySelectorAll('.ring-item')];
     this.n=this.items.length; this.step=360/this.n;
-    this.rotation=0; this.dragging=false; this.startX=0; this.startRotation=0;
+    this.rotation=0; this.dragging=false; this.startX=0; this.startY=0; this.startRotation=0;
     const w=this.items[0].getBoundingClientRect().width || 220;
     this.radius=Math.round((w/1.9)/Math.tan(Math.PI/this.n)*gap);
+    // stop native image/link drag-ghosting from hijacking our custom pointer rotation
+    this.items.forEach(item=>{
+      item.setAttribute('draggable','false');
+      item.ondragstart=()=>false;
+      item.querySelectorAll('img').forEach(img=>{ img.setAttribute('draggable','false'); img.ondragstart=()=>false; });
+    });
     this.bind();
     this.update();
   }
   bind(){
+    this.stage.addEventListener('dragstart',e=>e.preventDefault());
     this.stage.addEventListener('pointerdown',e=>this.onDown(e));
     window.addEventListener('pointermove',e=>this.onMove(e));
     window.addEventListener('pointerup',()=>this.onUp());
     window.addEventListener('pointercancel',()=>this.onUp());
   }
   onDown(e){
-    this.dragging=true; this.startX=e.clientX; this.startRotation=this.rotation;
+    this.dragging=true; this.startX=e.clientX; this.startY=e.clientY; this.startRotation=this.rotation;
     this.ring.style.transition='none';
     this.moved=false;
+    e.preventDefault();
     try{this.stage.setPointerCapture(e.pointerId)}catch(_){}
   }
   onMove(e){
     if(!this.dragging) return;
     const dx=e.clientX-this.startX;
     if(Math.abs(dx)>4) this.moved=true;
+    if(Math.abs(dx)>Math.abs(e.clientY-this.startY)) e.preventDefault();
     this.rotation=this.startRotation+dx*0.4;
     this.apply(); this.update();
   }
@@ -1121,6 +1252,18 @@ $$('.cat-chip').forEach(chip=>{
     $$('.cat-chip').forEach(c=>c.classList.remove('active'));
     chip.classList.add('active');
     applyFilter(chip.dataset.filter);
+    $('#shop').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+
+/* ---------- shop by mood cards: filter the Shop All grid on click ---------- */
+$$('.mood-card').forEach(card=>{
+  card.addEventListener('click',e=>{
+    if(orbitCarousel.moved) return; // ignore taps that were actually a drag
+    e.preventDefault();
+    const key=card.dataset.category;
+    $$('.cat-chip').forEach(c=>c.classList.toggle('active',c.dataset.filter===key));
+    applyFilter(key);
     $('#shop').scrollIntoView({behavior:'smooth',block:'start'});
   });
 });
