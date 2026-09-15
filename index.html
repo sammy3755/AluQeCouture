@@ -63,7 +63,11 @@ body::before{
 .main-nav a:hover{color:var(--ivory)}
 .main-nav a:hover::after{right:0}
 .main-nav a.sale-link{color:var(--wine-2)}
-.actions{display:flex;gap:20px}
+.actions{display:flex;align-items:center;gap:20px}
+.currency-toggle{display:flex;align-items:center;border:1px solid var(--line);border-radius:20px;padding:3px;gap:2px}
+.cur-btn{background:none;border:none;color:var(--muted);font-size:10.5px;font-weight:600;letter-spacing:.4px;padding:7px 12px;border-radius:16px;transition:.25s;cursor:pointer;font-family:inherit;white-space:nowrap}
+.cur-btn.active{background:var(--bronze);color:#0b0a08}
+.cur-btn:hover:not(.active){color:var(--ivory)}
 .actions button{background:none;border:0;color:var(--ivory);font-size:16px;position:relative;width:30px;height:30px;display:flex;align-items:center;justify-content:center;opacity:.85;transition:opacity .25s}
 .actions button:hover{opacity:1}
 .actions svg{width:18px;height:18px}
@@ -115,12 +119,22 @@ body::before{
 .rail-card h3{font:italic 500 17px var(--serif);margin:24px 0 8px;color:var(--ivory)}
 .rail-card b{font-size:12px;color:var(--muted);font-weight:600}
 
-/* ================= MARQUEE ================= */
-.marquee{border-bottom:1px solid var(--line);overflow:hidden;background:var(--panel);padding:20px 0}
-.marquee-track{display:flex;width:max-content;animation:scrollLeft 32s linear infinite}
-.marquee-track span{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--muted);padding:0 34px;white-space:nowrap;display:flex;align-items:center;gap:34px}
-.marquee-track span i{width:5px;height:5px;background:var(--bronze);border-radius:50%;display:inline-block;font-style:normal}
-@keyframes scrollLeft{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* ================= CATEGORY ORBIT (animated + draggable + clickable) ================= */
+.cat-orbit{border-bottom:1px solid var(--line);overflow:hidden;background:var(--panel);padding:28px 0;cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.cat-orbit:active{cursor:grabbing}
+.cat-orbit-track{display:flex;width:max-content;will-change:transform}
+.cat-orbit-item{flex:none;display:flex;flex-direction:column;align-items:center;gap:10px;width:96px;margin:0 20px;text-decoration:none;color:inherit;-webkit-user-drag:none}
+.cat-orbit-avatar{width:70px;height:70px;border-radius:50%;overflow:hidden;border:1.5px solid var(--line);background:var(--panel-2);transition:.3s;pointer-events:none}
+.cat-orbit-avatar img{width:100%;height:100%;object-fit:cover;filter:saturate(.78);pointer-events:none;-webkit-user-drag:none}
+.cat-orbit-item:hover .cat-orbit-avatar{border-color:var(--bronze);transform:translateY(-3px)}
+.cat-orbit-avatar.brand,.cat-orbit-avatar.sale{display:flex;align-items:center;justify-content:center}
+.cat-orbit-avatar.brand{background:radial-gradient(circle at 32% 28%,#241d12,#0b0a08)}
+.cat-orbit-avatar.brand em{font-style:italic;font-family:var(--serif);color:var(--bronze);font-size:19px;font-weight:700}
+.cat-orbit-avatar.sale{background:radial-gradient(circle at 32% 28%,#301019,#0b0a08)}
+.cat-orbit-avatar.sale em{font-style:normal;font-family:var(--serif);color:var(--wine-2);font-size:22px;font-weight:700}
+.cat-orbit-item span:last-child{font-size:10px;letter-spacing:1.2px;color:var(--muted);white-space:nowrap;transition:.3s}
+.cat-orbit-item:hover span:last-child{color:var(--ivory)}
+.cat-orbit-item.sale span:last-child{color:var(--wine-2)}
 
 /* ================= RING CAROUSELS (true 3D) ================= */
 .rings-grid{max-width:1480px;margin:0 auto;padding:96px 4vw;display:grid;grid-template-columns:1fr 1fr;gap:0 64px}
@@ -304,9 +318,6 @@ footer a:hover{color:var(--bronze)}
 @media(max-width:767px){.ring-edge-btn{display:none}}
 
 /* ================= CATEGORY MENU BAR ================= */
-.category-bar{position:sticky;top:84px;z-index:55;background:rgba(3,3,3,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.category-bar-track{display:flex;gap:10px;overflow-x:auto;padding:14px 4vw;scrollbar-width:none}
-.category-bar-track::-webkit-scrollbar{display:none}
 .cat-chip{flex:none;background:none;border:1px solid var(--line);color:var(--muted);padding:9px 18px;font-size:10.5px;letter-spacing:1px;border-radius:20px;transition:.25s;white-space:nowrap}
 .cat-chip:hover{border-color:var(--bronze-dim);color:var(--ivory)}
 .cat-chip.active{background:var(--bronze);border-color:var(--bronze);color:#0b0a08;font-weight:600}
@@ -376,8 +387,8 @@ footer a:hover{color:var(--bronze)}
   .brand{min-width:0;flex:1}
   .brand img{width:42px;height:42px}
   .brand span{font-size:20px}
+  .cur-btn{font-size:9.5px;padding:6px 9px}
   .main-nav{display:none}
-  .category-bar{position:static}
   .hero-stage{min-height:600px}
   .hero-content{left:7%;right:7%}
   .hero-arrow{display:none}
@@ -389,6 +400,12 @@ footer a:hover{color:var(--bronze)}
   .rings-grid{padding:56px 4vw}
   .rings-grid .pcard{width:160px;height:280px}
   .rings-grid .pcard .pimg{height:195px}
+  .cat-orbit{padding:18px 0}
+  .cat-orbit-item{width:74px;margin:0 12px;gap:7px}
+  .cat-orbit-avatar{width:54px;height:54px}
+  .cat-orbit-avatar.brand em{font-size:15px}
+  .cat-orbit-avatar.sale em{font-size:17px}
+  .cat-orbit-item span:last-child{font-size:9px}
   .ring-mobile-nav{display:flex;justify-content:center;gap:14px;margin-top:20px}
   .plp-grid{grid-template-columns:repeat(2,1fr);gap:20px 14px}
   .cuboid-stage{height:240px}
@@ -420,6 +437,10 @@ footer a:hover{color:var(--bronze)}
     <a href="#editorial">Lookbook</a><a href="#shop">Shop All</a><a class="sale-link" href="#sale">Sale</a>
   </nav>
   <div class="actions">
+    <div class="currency-toggle" role="group" aria-label="Currency">
+      <button type="button" class="cur-btn active" data-cur="USD">$<span class="cur-label"> USD</span></button>
+      <button type="button" class="cur-btn" data-cur="NGN">₦<span class="cur-label"> NGN</span></button>
+    </div>
     <button aria-label="Search" onclick="showToast('Search coming soon.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></button>
     <button aria-label="Account" onclick="showToast('Accounts & profiles are coming soon.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.8-4 5-6 8-6s6.2 2 8 6"/></svg></button>
     <button aria-label="Wishlist" onclick="showToast('Tap the heart on any product in Shop All to save it here.')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7.5-4.7-10-9.3C.5 8 2.3 4.5 6 4.5c2.2 0 3.7 1.2 4.6 2.6.4.6.7 1.1.9 1.5.2-.4.5-.9.9-1.5C13.3 5.7 14.8 4.5 17 4.5c3.7 0 5.5 3.5 4 7.2C19.5 16.3 12 21 12 21z"/></svg></button>
@@ -427,21 +448,6 @@ footer a:hover{color:var(--bronze)}
   </div>
 </header>
 
-<nav class="category-bar" id="categoryBar" aria-label="Shop by category">
-  <div class="category-bar-track">
-    <button class="cat-chip active" data-filter="all">All</button>
-    <button class="cat-chip" data-filter="tops">Tops</button>
-    <button class="cat-chip" data-filter="denim">Denim</button>
-    <button class="cat-chip" data-filter="gowns">Gowns</button>
-    <button class="cat-chip" data-filter="pants">Pants</button>
-    <button class="cat-chip" data-filter="skirts">Skirts</button>
-    <button class="cat-chip" data-filter="leather">Leather</button>
-    <button class="cat-chip" data-filter="accessories">Accessories</button>
-    <button class="cat-chip" data-filter="outfits">Full Outfits</button>
-    <button class="cat-chip" data-filter="custom">Custom</button>
-    <button class="cat-chip sale" data-filter="sale">Sale</button>
-  </div>
-</nav>
 
 <main>
 
@@ -493,11 +499,32 @@ footer a:hover{color:var(--bronze)}
   </aside>
 </section>
 
-<!-- MARQUEE -->
-<div class="marquee">
-  <div class="marquee-track" id="marqueeTrack">
-    <span>New Season <i></i> Tailored For Now <i></i> Quiet Luxury <i></i> After Dark <i></i> Crafted In Detail <i></i></span>
-    <span>New Season <i></i> Tailored For Now <i></i> Quiet Luxury <i></i> After Dark <i></i> Crafted In Detail <i></i></span>
+<!-- CATEGORY ORBIT — animated, clickable, swipeable category rail -->
+<div class="cat-orbit" id="catOrbit" aria-label="Shop by category, drag to browse">
+  <div class="cat-orbit-track" id="catOrbitTrack">
+    <a class="cat-orbit-item" data-filter="all" href="#shop"><div class="cat-orbit-avatar brand"><em>AC</em></div><span>All</span></a>
+    <a class="cat-orbit-item" data-filter="tops" href="#shop"><div class="cat-orbit-avatar"><img src="https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=200&q=80" alt="Tops"></div><span>Tops</span></a>
+    <a class="cat-orbit-item" data-filter="denim" href="#shop"><div class="cat-orbit-avatar"><img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=200&q=80" alt="Denim"></div><span>Denim</span></a>
+    <a class="cat-orbit-item" data-filter="gowns" href="#shop"><div class="cat-orbit-avatar"><img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=200&q=80" alt="Gowns"></div><span>Gowns</span></a>
+    <a class="cat-orbit-item" data-filter="pants" href="#shop"><div class="cat-orbit-avatar"><img src="https://images.unsplash.com/photo-1495385794356-15371f348c31?auto=format&fit=crop&w=200&q=80" alt="Pants"></div><span>Pants</span></a>
+    <a class="cat-orbit-item" data-filter="skirts" href="#shop"><div class="cat-orbit-avatar"><img src="https://images.unsplash.com/photo-1583496661160-fb5886a13d05?auto=format&fit=crop&w=200&q=80" alt="Skirts"></div><span>Skirts</span></a>
+    <a class="cat-orbit-item" data-filter="leather" href="#shop"><div class="cat-orbit-avatar"><img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=200&q=80" alt="Leather"></div><span>Leather</span></a>
+    <a class="cat-orbit-item" data-filter="accessories" href="#shop"><div class="cat-orbit-avatar"><img src="https://images.unsplash.com/photo-1612902456551-333ac5afa26e?auto=format&fit=crop&w=200&q=80" alt="Accessories"></div><span>Accessories</span></a>
+    <a class="cat-orbit-item" data-filter="outfits" href="#shop"><div class="cat-orbit-avatar"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=200&q=80" alt="Full Outfits"></div><span>Full Outfits</span></a>
+    <a class="cat-orbit-item" data-filter="custom" href="#shop"><div class="cat-orbit-avatar"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=200&q=80" alt="Custom"></div><span>Custom</span></a>
+    <a class="cat-orbit-item sale" data-filter="sale" href="#shop"><div class="cat-orbit-avatar sale"><em>%</em></div><span>Sale</span></a>
+
+    <a class="cat-orbit-item" data-filter="all" href="#shop"><div class="cat-orbit-avatar brand"><em>AC</em></div><span>All</span></a>
+    <a class="cat-orbit-item" data-filter="tops" href="#shop"><div class="cat-orbit-avatar"><img src="https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=200&q=80" alt="Tops"></div><span>Tops</span></a>
+    <a class="cat-orbit-item" data-filter="denim" href="#shop"><div class="cat-orbit-avatar"><img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=200&q=80" alt="Denim"></div><span>Denim</span></a>
+    <a class="cat-orbit-item" data-filter="gowns" href="#shop"><div class="cat-orbit-avatar"><img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=200&q=80" alt="Gowns"></div><span>Gowns</span></a>
+    <a class="cat-orbit-item" data-filter="pants" href="#shop"><div class="cat-orbit-avatar"><img src="https://images.unsplash.com/photo-1495385794356-15371f348c31?auto=format&fit=crop&w=200&q=80" alt="Pants"></div><span>Pants</span></a>
+    <a class="cat-orbit-item" data-filter="skirts" href="#shop"><div class="cat-orbit-avatar"><img src="https://images.unsplash.com/photo-1583496661160-fb5886a13d05?auto=format&fit=crop&w=200&q=80" alt="Skirts"></div><span>Skirts</span></a>
+    <a class="cat-orbit-item" data-filter="leather" href="#shop"><div class="cat-orbit-avatar"><img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=200&q=80" alt="Leather"></div><span>Leather</span></a>
+    <a class="cat-orbit-item" data-filter="accessories" href="#shop"><div class="cat-orbit-avatar"><img src="https://images.unsplash.com/photo-1612902456551-333ac5afa26e?auto=format&fit=crop&w=200&q=80" alt="Accessories"></div><span>Accessories</span></a>
+    <a class="cat-orbit-item" data-filter="outfits" href="#shop"><div class="cat-orbit-avatar"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=200&q=80" alt="Full Outfits"></div><span>Full Outfits</span></a>
+    <a class="cat-orbit-item" data-filter="custom" href="#shop"><div class="cat-orbit-avatar"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=200&q=80" alt="Custom"></div><span>Custom</span></a>
+    <a class="cat-orbit-item sale" data-filter="sale" href="#shop"><div class="cat-orbit-avatar sale"><em>%</em></div><span>Sale</span></a>
   </div>
 </div>
 
@@ -1049,7 +1076,7 @@ class RingCarousel{
     this.ring.style.transition='none';
     this.moved=false;
     e.preventDefault();
-    try{this.stage.setPointerCapture(e.pointerId)}catch(_){}
+
   }
   onMove(e){
     if(!this.dragging) return;
@@ -1101,6 +1128,70 @@ $('#orbitRing').querySelectorAll('a').forEach(a=>{
 });
 window.addEventListener('resize',()=>{ orbitCarousel.update(); productCarousel.update(); });
 
+/* ---------- category orbit: auto-animating, draggable, clickable rail ---------- */
+class AutoSlider{
+  constructor(container,track,{speed=32}={}){
+    this.container=container; this.track=track; this.speed=speed;
+    this.x=0; this.dragging=false; this.moved=false; this.startX=0; this.startXOffset=0; this.paused=false;
+    this.last=performance.now();
+    // stop native link/image drag-ghosting from hijacking the pointer-based slide (and swallowing clicks)
+    [...track.children].forEach(item=>{
+      item.setAttribute('draggable','false');
+      item.ondragstart=()=>false;
+      item.querySelectorAll('img').forEach(img=>{ img.setAttribute('draggable','false'); img.ondragstart=()=>false; });
+    });
+    this.bind();
+    requestAnimationFrame(t=>this.loop(t));
+  }
+  bind(){
+    this.container.addEventListener('dragstart',e=>e.preventDefault());
+    this.container.addEventListener('pointerdown',e=>this.onDown(e));
+    window.addEventListener('pointermove',e=>this.onMove(e));
+    window.addEventListener('pointerup',()=>this.onUp());
+    window.addEventListener('pointercancel',()=>this.onUp());
+    this.container.addEventListener('mouseenter',()=>{ this.paused=true; });
+    this.container.addEventListener('mouseleave',()=>{ if(!this.dragging) this.paused=false; });
+  }
+  onDown(e){
+    this.dragging=true; this.moved=false; this.paused=true;
+    this.startX=e.clientX; this.startXOffset=this.x;
+
+  }
+  onMove(e){
+    if(!this.dragging) return;
+    const dx=e.clientX-this.startX;
+    if(Math.abs(dx)>4) this.moved=true;
+    this.x=this.startXOffset+dx;
+    this.apply();
+  }
+  onUp(){ this.dragging=false; }
+  apply(){
+    const half=this.track.scrollWidth/2;
+    if(half<=0) return;
+    let x=this.x%half;
+    if(x>0) x-=half;
+    this.track.style.transform=`translateX(${x}px)`;
+  }
+  loop(now){
+    const dt=(now-this.last)/1000; this.last=now;
+    if(!this.paused && !this.dragging) this.x-=this.speed*dt;
+    this.apply();
+    requestAnimationFrame(t=>this.loop(t));
+  }
+}
+const catSlider=new AutoSlider($('#catOrbit'),$('#catOrbitTrack'),{speed:30});
+$$('.cat-orbit-item').forEach(item=>{
+  item.addEventListener('click',e=>{
+    if(catSlider.moved){ e.preventDefault(); return; }
+    e.preventDefault();
+    const key=item.dataset.filter;
+    $$('.cat-chip').forEach(c=>c.classList.toggle('active',c.dataset.filter===key));
+    applyFilter(key);
+    $('#shop').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+
+
 /* ---------- coverflow (linear) 3D carousel ---------- */
 class CoverflowCarousel{
   constructor(stageEl,trackEl){
@@ -1115,7 +1206,7 @@ class CoverflowCarousel{
     this.update();
   }
   goTo(i){ this.active=Math.max(0,Math.min(this.n-1,i)); this.update(true); }
-  onDown(e){ this.dragging=true; this.startX=e.clientX; this.dragOffset=0; this.moved=false; try{this.stage.setPointerCapture(e.pointerId)}catch(_){}}
+  onDown(e){ this.dragging=true; this.startX=e.clientX; this.dragOffset=0; this.moved=false;}
   onMove(e){
     if(!this.dragging) return;
     this.dragOffset=e.clientX-this.startX;
@@ -1157,7 +1248,7 @@ class StackCarousel{
     this.stage.addEventListener('pointerdown',e=>{
       if(e.target.closest('.stack-card')!==top()) return;
       this.dragging=true; this.startX=e.clientX;
-      try{top().setPointerCapture(e.pointerId)}catch(_){}
+
     });
     window.addEventListener('pointermove',e=>{
       if(!this.dragging) return;
@@ -1314,7 +1405,7 @@ $$('.bottom-tabs .tab').forEach(tab=>{
     tab.classList.add('active');
     const key=tab.dataset.tab;
     if(key==='shop') $('#shop').scrollIntoView({behavior:'smooth'});
-    else if(key==='categories') $('#categoryBar').scrollIntoView({behavior:'smooth'});
+    else if(key==='categories') $('#catOrbit').scrollIntoView({behavior:'smooth'});
     else if(key==='wishlist') showToast('Your wishlist is right here on the Shop All grid — tap the heart on any piece.');
     else if(key==='cart') showToast(cart===0?'Your bag is empty.':`${cart} item${cart>1?'s':''} in your bag.`);
     else if(key==='account') showToast('Accounts & profiles are coming soon.');
